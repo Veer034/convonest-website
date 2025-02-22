@@ -102,13 +102,13 @@ const LandingPage = () => {
               >
                 Learn More About Us
               </Button>
-              <Button
+              {/* <Button
                 as="a"
                 href="/signup"
                 className="mb-4 text-lg text-blue-600 hover:bg-blue-100 sm:mb-0"
               >
                 Start Your 21-Day Free Trial
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>
@@ -187,7 +187,7 @@ const LandingPage = () => {
       <AnimatedLandingPage />
 
       {/* Chat Integration */}
-      <ChatIntegration />
+      {/* <ChatIntegration /> */}
 
       {/* Contact Section */}
       <Contact />

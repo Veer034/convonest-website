@@ -5,15 +5,15 @@ import React, { useState, useEffect } from "react";
 
 const slides = [
   {
-    image: "/Images/hero_1.jpg",
-    text: "Elevate Your Business with AI-Driven Omnichannel Customer Engagement Platform",
+    image: "/images/hero_1.jpg",
+    text: "Elevate Your Business with AI-Driven Omnichannel Customer Interaction Platform",
   },
   {
-    image: "/Images/hero_2.jpg",
+    image: "/images/hero_2.jpg",
     text: "Innovate with the Best Solutions",
   },
   {
-    image: "/Images/hero_3.jpg",
+    image: "/images/hero_3.jpg",
     text: "Transform Your Business Today",
   },
 ];
@@ -21,7 +21,6 @@ const slides = [
 const CarouselWithTextOverlay = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
   const handleNextSlide = () => {
     setActiveIndex((prevIndex) => (prevIndex + 1) % slides.length);
@@ -34,7 +33,8 @@ const CarouselWithTextOverlay = () => {
   };
 
   useEffect(() => {
-    let interval: NodeJS.Timeout | null = null;
+    // Ensure we run the interval only in the browser
+    let interval = null;
 
     if (!isPaused) {
       interval = setInterval(() => {
@@ -50,62 +50,48 @@ const CarouselWithTextOverlay = () => {
   return (
     <div
       id="home"
-      className="relative h-[100vh] w-full"
-      onMouseEnter={() => {
-        setIsPaused(true);
-        setIsHovered(true);
-      }}
-      onMouseLeave={() => {
-        setIsPaused(false);
-        setIsHovered(false);
-      }}
+      className="relative h-[100vh] w-full overflow-hidden"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="relative h-full overflow-hidden">
-        <div
-          className="relative flex transition-transform duration-700 ease-in-out"
-          style={{
-            transform: `translateX(-${activeIndex * 100}%)`,
-          }}
-        >
-          {slides.map((slide, index) => (
-            <div
-              key={index}
-              className="relative h-[100vh] w-full flex-shrink-0"
-            >
-              <Image
-                src={slide.image}
-                alt={`Slide ${index + 1}`}
-                layout="fill"
-                objectFit="cover"
-                priority
-              />
-              <div className="absolute inset-0 left-0 flex h-auto w-full items-center justify-center">
-                <h2 className="w-[70%] px-4 text-center text-6xl font-bold text-white md:text-6xl">
-                  {slide.text}
-                </h2>
-              </div>
+      {/* Slides */}
+      <div
+        className="flex transition-transform duration-700 ease-in-out"
+        style={{
+          transform: `translateX(-${activeIndex * 100}%)`,
+        }}
+      >
+        {slides.map((slide, index) => (
+          <div key={index} className="relative h-[100vh] w-full flex-shrink-0">
+            <Image
+              src={slide.image}
+              alt={`Slide ${index + 1}`}
+              fill
+              style={{ objectFit: "cover" }}
+              priority
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <h2 className="w-[70%] px-4 text-center text-6xl font-bold text-white">
+                {slide.text}
+              </h2>
             </div>
-          ))}
-        </div>
-
-        {/* Navigation Arrows */}
-        <button
-          onClick={handlePreviousSlide}
-          className={`absolute left-4 top-1/2 transform -translate-y-1/2 bg-white text-black p-2 rounded-full shadow-lg transition-opacity duration-300 ${
-            isHovered ? "opacity-100" : "opacity-10"
-          } hover:opacity-75`}
-        >
-          &#8592;
-        </button>
-        <button
-          onClick={handleNextSlide}
-          className={`absolute right-4 top-1/2 transform -translate-y-1/2 bg-white text-black p-2 rounded-full shadow-lg transition-opacity duration-300 ${
-            isHovered ? "opacity-100" : "opacity-10"
-          } hover:opacity-75`}
-        >
-          &#8594;
-        </button>
+          </div>
+        ))}
       </div>
+
+      {/* Navigation Buttons */}
+      <button
+        onClick={handlePreviousSlide}
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white text-black p-2 rounded-full shadow-lg transition-opacity duration-300 opacity-10 hover:opacity-75"
+      >
+        &#8592;
+      </button>
+      <button
+        onClick={handleNextSlide}
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white text-black p-2 rounded-full shadow-lg transition-opacity duration-300 opacity-10 hover:opacity-75"
+      >
+        &#8594;
+      </button>
     </div>
   );
 };

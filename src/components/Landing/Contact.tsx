@@ -1,15 +1,18 @@
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import Image from "next/image";
+
 export default function Contact() {
   const items = [
     {
-      category: "Our Location",
-      description:
-        "Ananya City, Simaliya, Fulkibagan, Ratu, Ranchi, Jharkhand, 835222",
+      category: "Our Locations",
+      description: "Bangalore, Karnataka, 560037\nRanchi, Jharkhand, 835222",
     },
     {
-      category: "How Can We Help?",
-      description: "admin@convonest.com",
+      category: "Connect With Us?",
+      description: "sales@convonest.com",
+    },
+    {
+      category: "Contact No",
+      description: "+91-8884161249",
     },
   ];
 
@@ -28,7 +31,7 @@ export default function Contact() {
             <div className="flex flex-col items-center bg-white shadow-lg rounded-lg p-6 hover:scale-105 transition-transform">
               <div className="relative w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-blue-500 shadow-lg">
                 <Image
-                  src="/Images/ranveer.jpg" // Replace with the actual image path
+                  src="/images/ranveer.jpg"
                   alt="Ranveer Singh"
                   layout="fill"
                   objectFit="cover"
@@ -38,7 +41,6 @@ export default function Contact() {
                 Ranveer Singh
               </h3>
               <p className="text-lg text-blue-600">Co-Founder</p>
-              {/* LinkedIn Link */}
               <a
                 href="https://www.linkedin.com/in/ranveersingh92"
                 target="_blank"
@@ -52,17 +54,16 @@ export default function Contact() {
             <div className="flex flex-col items-center bg-white shadow-lg rounded-lg p-6 hover:scale-105 transition-transform">
               <div className="relative w-32 h-32 mb-4 rounded-full overflow-hidden border-4 border-blue-500 shadow-lg">
                 <Image
-                  src="/Images/bharat.png" // Replace with the actual image path
+                  src="/images/bharat.png"
                   alt="Bharat Jaigad"
                   layout="fill"
                   objectFit="cover"
                 />
               </div>
               <h3 className="text-2xl font-semibold text-gray-700">
-                Bharat Jaigad
+                Bharat Jangid
               </h3>
               <p className="text-lg text-blue-600">Co-Founder</p>
-              {/* LinkedIn Link */}
               <a
                 href="https://www.linkedin.com/in/bharat-jangid-b3891697"
                 target="_blank"
@@ -91,8 +92,17 @@ export default function Contact() {
                   >
                     {item.description}
                   </a>
+                ) : item.category === "Phone" ? (
+                  <a
+                    href={`tel:${item.description}`}
+                    className="text-gray-700 hover:text-blue-500 hover:underline"
+                  >
+                    {item.description}
+                  </a>
                 ) : (
-                  <p className="text-gray-700">{item.description}</p>
+                  <p className="text-gray-700 whitespace-pre-line">
+                    {item.description}
+                  </p>
                 )}
               </div>
             ))}
