@@ -53,7 +53,7 @@ export default function RootLayout({
             <AppNavbar />
           </div>
           <main className="mt-10 flex-grow">{children}</main>
-          {/* <ChatWidget /> */}
+          <ChatWidget />
         </Providers>
       </body>
     </html>
