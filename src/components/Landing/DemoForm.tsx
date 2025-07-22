@@ -158,8 +158,7 @@ const DemoForm: React.FC<DemoFormProps> = ({ selectedPlan = "", onClose }) => {
       preferredTime1: formData.preferredTime1,
       preferredDate2: formData.preferredDate2,
       preferredTime2: formData.preferredTime2,
-      // timezone: userTimezone,
-      timezone: "America/Los_Angeles",
+      timezone: userTimezone,
     };
 
     console.log("Sending to backend:", backendData);
