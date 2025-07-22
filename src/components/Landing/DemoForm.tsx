@@ -165,7 +165,7 @@ const DemoForm: React.FC<DemoFormProps> = ({ selectedPlan = "", onClose }) => {
     console.log("Sending to backend:", backendData);
 
     try {
-      const response = await fetch("https://gate.cononest.com/demo/schedule", {
+      const response = await fetch("https://gate.convonest.com/demo/schedule", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
