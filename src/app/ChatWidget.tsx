@@ -36,11 +36,11 @@ const ChatWidget: React.FC = () => {
       <style>
         {`
         :root {
-            --chat-primary-color: #2c3e50;
-            --chat-primary-hover: #233240;
-            --chat-bg-color: #f8f2ec;
+            --chat-primary-color: #007bff;
+            --chat-primary-hover: #0062cc;
+            --chat-bg-color: #ffffff;
             --chat-text-color: #333333;
-            --chat-border-color: #dfdad4;
+            --chat-border-color: #e6e6e6;
             --chat-shadow-color: rgba(0, 0, 0, 0.15);
         }
     
@@ -73,7 +73,7 @@ const ChatWidget: React.FC = () => {
         }
     
         .chat-header {
-            background: linear-gradient(135deg, #2c3e50, #233240);
+            background: #007bff;
             color: #ffffff;
             padding: 15px 20px;
             font-weight: bold;
@@ -90,29 +90,29 @@ const ChatWidget: React.FC = () => {
         }
 
         .chat-message {
-            border-radius: 4px;
+            border-radius: 20px;
             padding: 10px 15px;
             margin: 5px;
             max-width: 80%;
         }
     
         
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
+        @keyframes slideOut {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(20px); opacity: 0; }
         }
     
         .chat-show {
             display: flex;
-            animation-name: fadeIn;
+            animation-name: slideIn;
         }
     
         .chat-hide {
-            animation-name: fadeOut;
+            animation-name: slideOut;
         }
 
         #chat-button {
@@ -363,7 +363,7 @@ const ChatWidget: React.FC = () => {
                     />
                   </svg>
                 </button>
-                <span>Need Help?</span>
+                <span>Chat with us</span>
               </div>
               <button
                 className="chat-close-btn"
