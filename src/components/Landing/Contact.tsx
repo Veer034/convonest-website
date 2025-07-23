@@ -41,14 +41,6 @@ const Contact = () => {
       description:
         "Expert in customer engagement technologies and big data analytics, with a proven track record of driving innovation and scaling solutions at leading global tech and retail enterprises.",
     },
-    {
-      name: "Bharat Jangid",
-      role: "Co-Founder & CTO",
-      image: "/images/bharat.png",
-      linkedin: "https://www.linkedin.com/in/bharat-jangid-b3891697",
-      description:
-        "Technology leader with deep expertise in frontent architecture, having led high-impact engineering initiatives in Socail Media App ",
-    },
   ];
 
   return (
@@ -103,15 +95,16 @@ const Contact = () => {
                   href={member.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 font-semibold text-white shadow-md transition-all duration-300 hover:from-blue-700 hover:to-indigo-700 hover:shadow-lg hover:-translate-y-0.5"
+                  className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 p-3 text-white shadow-md transition-all duration-300 hover:from-blue-700 hover:to-indigo-700 hover:shadow-lg hover:-translate-y-0.5"
+                  aria-label="LinkedIn"
                 >
-                  <span>LinkedIn Profile</span>
                   <svg
-                    className="h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
                     fill="currentColor"
-                    viewBox="0 0 20 20"
+                    className="h-5 w-5"
                   >
-                    <path d="M12.017 0C18.624 0 24.017 5.394 24.017 12.017c0 6.624-5.394 12.017-12.017 12.017C5.394 24.034.001 18.641.001 12.017.001 5.394 5.394 0 12.017 0zM8.948 9.652v6.578h2.146v-6.578h1.46l.155-1.687H11.094V6.484c0-.435.032-.678.678-.678h.927V4.119H11.553c-1.769 0-2.605.97-2.605 2.605v1.241H7.791v1.687h1.157z" />
+                    <path d="M100.28 448H7.4V148.9h92.88zm-46.44-340C24.36 108 0 83.64 0 53.9 0 24.13 24.36 0 53.84 0S107.7 24.13 107.7 53.9c0 29.74-24.36 54.1-53.86 54.1zM447.9 448h-92.4V302.4c0-34.7-12.5-58.4-43.6-58.4-23.8 0-38 16-44.3 31.4-2.3 5.5-2.9 13.2-2.9 20.9V448h-92.4s1.2-263.2 0-290.1h92.4v41.1c12.3-19 34.3-46.1 83.6-46.1 61 0 106.7 39.8 106.7 125.2V448z" />
                   </svg>
                 </a>
               </div>
