@@ -448,7 +448,7 @@ const ChatWidget: React.FC = () => {
             <div className="chat-content">
               {/* Embed the chat iframe */}
               <iframe
-                src="http://localhost:8090/contacts/load-script"
+                src="https://gate.convonest.com/contacts/load-script"
                 style={{
                   width: "100%",
                   height: "calc(100% - 5px)", // ✅ Properly expands iframe
