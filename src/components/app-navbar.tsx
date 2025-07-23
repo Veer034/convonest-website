@@ -138,7 +138,7 @@ export default function App() {
       </NavbarContent>
 
       {/* Desktop View - Full Navigation */}
-      <NavbarContent className="hidden sm:flex gap-2" justify="start">
+      <NavbarContent className="hidden sm:flex gap-6" justify="start">
         <NavbarBrand className="mr-4">
           <button
             onClick={() => scrollToSection("#home")}

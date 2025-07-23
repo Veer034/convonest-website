@@ -286,43 +286,43 @@ const DemoForm: React.FC<DemoFormProps> = ({ selectedPlan = "", onClose }) => {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-      <div className="w-full max-w-4xl max-h-[95vh] overflow-y-auto">
-        <Card className="w-full bg-white/90 backdrop-blur-sm">
-          <CardBody className="p-0">
-            {/* Header */}
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-white relative">
-              <button
-                onClick={onClose}
-                type="button"
-                className="absolute top-3 right-3 text-white/80 hover:text-white transition-colors text-2xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/20"
-                aria-label="Close dialog"
-              >
-                ×
-              </button>
-              <div className="text-center pr-8">
-                <h2 className="text-2xl font-bold mb-2">Schedule Your Demo</h2>
-                <p className="text-lg text-blue-100 mb-2">
-                  See how Convonest can transform your customer engagement
-                </p>
-                <div className="flex justify-center items-center gap-4">
-                  <div className="inline-block bg-white/20 rounded-full px-3 py-1">
-                    <span className="text-sm font-semibold">
-                      ⏱️ Duration: 30-45 minutes
-                    </span>
-                  </div>
-                  <div className="inline-block bg-white/20 rounded-full px-3 py-1">
-                    <span className="text-sm font-semibold">
-                      🌍 Your timezone: {userTimezone}
-                    </span>
-                  </div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-3">
+      <div className="w-full max-w-6xl max-h-[98vh] overflow-hidden flex flex-col">
+        <Card className="w-full bg-white/95 backdrop-blur-sm flex-1 flex flex-col">
+          {/* Header - Fixed */}
+          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-4 text-white relative flex-shrink-0">
+            <button
+              onClick={onClose}
+              type="button"
+              className="absolute top-2 right-2 text-white/80 hover:text-white transition-colors text-2xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/20"
+              aria-label="Close dialog"
+            >
+              ×
+            </button>
+            <div className="text-center pr-8">
+              <h2 className="text-2xl font-bold mb-2">Schedule Your Demo</h2>
+              <p className="text-base text-blue-100 mb-3">
+                See how Convonest can transform your customer engagement
+              </p>
+              <div className="flex justify-center items-center gap-3 flex-wrap">
+                <div className="inline-block bg-white/20 rounded-full px-3 py-1">
+                  <span className="text-sm font-semibold">
+                    ⏱️ Duration: 30-45 minutes
+                  </span>
+                </div>
+                <div className="inline-block bg-white/20 rounded-full px-3 py-1">
+                  <span className="text-sm font-semibold">
+                    🌍 Your timezone: {userTimezone}
+                  </span>
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Form */}
+          {/* Scrollable Form Content */}
+          <div className="flex-1 overflow-y-auto">
             <form onSubmit={handleSubmit} className="p-6">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
                 {/* Left Column - Personal Information */}
                 <div className="space-y-4">
                   <div>
@@ -335,7 +335,7 @@ const DemoForm: React.FC<DemoFormProps> = ({ selectedPlan = "", onClose }) => {
                       <Input
                         type="text"
                         label="First Name"
-                        placeholder="Enter your first name"
+                        placeholder="First name"
                         value={formData.firstName}
                         onChange={(e) =>
                           handleInputChange("firstName", e.target.value)
@@ -351,7 +351,7 @@ const DemoForm: React.FC<DemoFormProps> = ({ selectedPlan = "", onClose }) => {
                       <Input
                         type="text"
                         label="Last Name"
-                        placeholder="Enter your last name"
+                        placeholder="Last name"
                         value={formData.lastName}
                         onChange={(e) =>
                           handleInputChange("lastName", e.target.value)
@@ -384,9 +384,9 @@ const DemoForm: React.FC<DemoFormProps> = ({ selectedPlan = "", onClose }) => {
                         }}
                       />
                       {/* Phone Number with Country Code  */}
-                      <div className="flex gap-2">
+                      <div className="flex gap-3">
                         <Select
-                          label="Country"
+                          label="Country Code"
                           placeholder="Select Code"
                           selectedKeys={
                             formData.countryCode
@@ -401,20 +401,19 @@ const DemoForm: React.FC<DemoFormProps> = ({ selectedPlan = "", onClose }) => {
                           }
                           required
                           size="sm"
-                          className="w-40 flex-shrink-0" // Balanced width - not too wide, not too narrow
+                          className="w-48 flex-shrink-0"
                           classNames={{
                             trigger:
                               "bg-white border-slate-200 hover:border-blue-400 data-[open=true]:border-blue-500",
-                            value: "text-sm", // Ensure text is visible
+                            value: "text-sm",
                           }}
                           renderValue={(items) => {
-                            // Custom render function to ensure proper display
                             return items.map((item) => {
                               const phoneCode = phoneCodes.find(
                                 (code) => code.code === item.key
                               );
                               return phoneCode
-                                ? `${phoneCode.code} (${phoneCode.label})`
+                                ? `${phoneCode.code} ${phoneCode.label}`
                                 : item.key;
                             });
                           }}
@@ -461,7 +460,7 @@ const DemoForm: React.FC<DemoFormProps> = ({ selectedPlan = "", onClose }) => {
                       <Input
                         type="text"
                         label="Company Name"
-                        placeholder="Your company name"
+                        placeholder="Company name"
                         value={formData.company}
                         onChange={(e) =>
                           handleInputChange("company", e.target.value)
@@ -477,7 +476,7 @@ const DemoForm: React.FC<DemoFormProps> = ({ selectedPlan = "", onClose }) => {
                       <Input
                         type="text"
                         label="Job Title"
-                        placeholder="Your job title"
+                        placeholder="Job title"
                         value={formData.jobTitle}
                         onChange={(e) =>
                           handleInputChange("jobTitle", e.target.value)
@@ -524,18 +523,18 @@ const DemoForm: React.FC<DemoFormProps> = ({ selectedPlan = "", onClose }) => {
                   </div>
                 </div>
 
-                {/* Right Column - Scheduling */}
+                {/* Middle Column - Scheduling */}
                 <div className="space-y-4">
                   <div>
                     <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-center">
                       <span className="text-xl mr-2">📅</span>
                       Preferred Schedule
                     </h3>
-                    <p className="text-sm text-slate-600 mb-1">
+                    <p className="text-sm text-slate-600 mb-2">
                       Please provide two preferred time slots. We'll confirm the
                       best option for both parties.
                     </p>
-                    <p className="text-xs text-blue-600 mb-3">
+                    <p className="text-sm text-blue-600 mb-3">
                       🌍 Times shown in your timezone: {userTimezone}
                     </p>
                   </div>
@@ -668,45 +667,50 @@ const DemoForm: React.FC<DemoFormProps> = ({ selectedPlan = "", onClose }) => {
                     />
                   </div>
                 </div>
-              </div>
 
-              {/* What to Expect */}
-              <div className="mt-6 bg-gradient-to-r from-slate-50 to-blue-50 rounded-lg p-4">
-                <h4 className="font-bold text-slate-800 mb-3 flex items-center">
-                  <span className="text-lg mr-2">💡</span>
-                  What to Expect in Your Demo
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-slate-600">
-                  <div className="flex items-start space-x-2">
-                    <span className="text-blue-500 font-bold">1.</span>
-                    <span>Product walkthrough tailored to your needs</span>
+                {/* Right Column - What to Expect */}
+                <div className="space-y-4">
+                  <div className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-lg p-4">
+                    <h4 className="font-bold text-slate-800 mb-3 flex items-center">
+                      <span className="text-xl mr-2">💡</span>
+                      What to Expect in Your Demo
+                    </h4>
+                    <div className="space-y-3 text-sm text-slate-600">
+                      <div className="flex items-start space-x-2">
+                        <span className="text-blue-500 font-bold">1.</span>
+                        <span>Product walkthrough tailored to your needs</span>
+                      </div>
+                      <div className="flex items-start space-x-2">
+                        <span className="text-blue-500 font-bold">2.</span>
+                        <span>Live demonstration of key features</span>
+                      </div>
+                      <div className="flex items-start space-x-2">
+                        <span className="text-blue-500 font-bold">3.</span>
+                        <span>Q&A session and pricing discussion</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-start space-x-2">
-                    <span className="text-blue-500 font-bold">2.</span>
-                    <span>Live demonstration of key features</span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <span className="text-blue-500 font-bold">3.</span>
-                    <span>Q&A session and pricing discussion</span>
+
+                  {/* Submit Button - Now in sidebar for better visibility */}
+                  <div className="sticky top-0 bg-white/95 backdrop-blur-sm p-4 rounded-lg border border-slate-200">
+                    <Button
+                      type="submit"
+                      disabled={!isFormValid() || isSubmitting}
+                      className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                      size="lg"
+                      radius="full"
+                      isLoading={isSubmitting}
+                    >
+                      {isSubmitting ? "Scheduling Demo..." : "Schedule Demo"}
+                    </Button>
+                    <p className="text-sm text-slate-500 mt-2 text-center">
+                      We'll confirm within 24 hours
+                    </p>
                   </div>
                 </div>
               </div>
-
-              {/* Submit Button */}
-              <div className="mt-6 flex justify-center">
-                <Button
-                  type="submit"
-                  disabled={!isFormValid() || isSubmitting}
-                  className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold px-8 py-2 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                  size="lg"
-                  radius="full"
-                  isLoading={isSubmitting}
-                >
-                  {isSubmitting ? "Scheduling Demo..." : "Schedule Demo"}
-                </Button>
-              </div>
             </form>
-          </CardBody>
+          </div>
         </Card>
       </div>
     </div>
