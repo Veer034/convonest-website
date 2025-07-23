@@ -178,7 +178,7 @@ const Contact = () => {
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <a
                 onClick={() => openDemoForm("")}
-                className="rounded-full bg-white px-8 py-4 font-bold text-blue-600 shadow-lg transition-all duration-300 hover:bg-slate-50 hover:shadow-xl hover:-translate-y-1"
+                className="cursor-pointer rounded-full bg-white px-8 py-4 font-bold text-blue-600 shadow-lg transition-all duration-300 hover:bg-slate-50 hover:shadow-xl hover:-translate-y-1"
               >
                 Schedule a Demo
               </a>
