@@ -1,22 +1,32 @@
-// Create file names ChatWidget.jsx, and import it in main react jsx page
-
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const ChatWidget: React.FC = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [activeTab, setActiveTab] = useState("chat");
+  const [hasNotification, setHasNotification] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const chatWindow = document.querySelector(".chat-window") as HTMLDivElement;
-    if (!chatWindow) return; // Prevents error if element doesn't exist
+    if (!chatWindow) return;
 
     if (isChatOpen) {
-      chatWindow.style.display = "flex"; // Ensures it's visible
+      chatWindow.style.display = "flex";
       chatWindow.style.width = isExpanded ? "500px" : "380px";
       chatWindow.style.height = isExpanded ? "700px" : "520px";
       chatWindow.classList.add("chat-show");
       chatWindow.classList.remove("chat-hide");
+
+      // Add/remove expanded class based on isExpanded state
+      if (isExpanded) {
+        chatWindow.classList.add("expanded");
+      } else {
+        chatWindow.classList.remove("expanded");
+      }
     } else {
       chatWindow.classList.add("chat-hide");
       chatWindow.classList.remove("chat-show");
@@ -26,9 +36,75 @@ const ChatWidget: React.FC = () => {
     }
   }, [isChatOpen, isExpanded]);
 
+  // Listen for messages from iframe to change tab data
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.origin !== "http://localhost:8090") return;
+
+      if (event.data.type === "CHANGE_TAB") {
+        setActiveTab(event.data.tabName || "chat");
+      }
+
+      // Show notification dot when new message arrives and chat is closed
+      if (event.data.type === "NEW_MESSAGE" && !isChatOpen) {
+        setHasNotification(true);
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, []);
+
+  // Send tab change to iframe when tab changes
+  useEffect(() => {
+    if (iframeRef.current?.contentWindow) {
+      iframeRef.current.contentWindow.postMessage(
+        {
+          type: "CHANGE_TAB",
+          activeTab: activeTab,
+        },
+        "http://localhost:8090"
+      );
+    }
+  }, [activeTab]);
+
   const toggleClick = () => {
     setIsExpanded(!isExpanded);
   };
+
+  const toggleChat = () => {
+    setIsChatOpen(!isChatOpen);
+    // Clear notification when chat is opened
+    if (!isChatOpen) {
+      setHasNotification(false);
+    }
+  };
+
+  const handleRestartChat = () => {
+    if (iframeRef.current?.contentWindow) {
+      iframeRef.current.contentWindow.postMessage(
+        { type: "RESTART_CHAT" },
+        "http://localhost:8090"
+      );
+    }
+    setShowMenu(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setShowMenu(false);
+      }
+    };
+
+    if (showMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showMenu]);
 
   return (
     <>
@@ -114,22 +190,64 @@ const ChatWidget: React.FC = () => {
         }
     
         .chat-header {
-            background: #007bff;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
             color: #ffffff;
-            padding: 15px 20px;
+            padding: 5px;
             font-weight: 600;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            
             backdrop-filter: blur(8px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 100;
+        }
+
+        /* Tab Navigation Styles */
+        .chat-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid var(--chat-border-color);
+            position: relative;
+            z-index: 50;
+        }
+
+        .chat-tab {
+            flex: 1;
+            padding: 12px 16px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .chat-tab:hover {
+            color: var(--chat-primary-color);
+            background: rgba(0, 123, 255, 0.05);
+        }
+
+        .chat-tab.active {
+            color: var(--chat-primary-color);
+            background: var(--chat-bg-color);
+        }
+
+        .chat-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--chat-primary-color);
         }
     
          .chat-content {
             flex-grow: 1;
             overflow-y: auto;
-            padding: 10px 5px 0px 5px;
             scroll-behavior: smooth;
         }
 
@@ -167,7 +285,7 @@ const ChatWidget: React.FC = () => {
         }
 
         #chat-button {
-            background-color: var(--chat-primary-color);
+            background: linear-gradient(135deg, var(--chat-primary-color) 0%, var(--chat-primary-hover) 100%);
             color: white;
             border: none;
             border-radius: 50%;
@@ -184,7 +302,7 @@ const ChatWidget: React.FC = () => {
         }
 
         #chat-button:hover {
-            background-color: var(--chat-primary-hover);
+            background: linear-gradient(135deg, var(--chat-primary-hover) 0%, #003d82 100%);
             transform: translateY(-2px) scale(1.05);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
@@ -299,10 +417,10 @@ const ChatWidget: React.FC = () => {
         .chat-close-btn {
             background: none;
             border: none;
-            padding: 5px;
+            padding: 8px;
             cursor: pointer;
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -311,7 +429,7 @@ const ChatWidget: React.FC = () => {
         }
 
         .chat-close-btn:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.15);
             transform: scale(1.1);
         }
 
@@ -357,10 +475,10 @@ const ChatWidget: React.FC = () => {
         .expand-btn {
             background: none;
             border: none;
-            padding: 0;
+            padding: 8px;
             cursor: pointer;
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -369,7 +487,7 @@ const ChatWidget: React.FC = () => {
         }
 
         .expand-btn:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.15);
             transform: scale(1.1);
         }
 
@@ -403,20 +521,150 @@ const ChatWidget: React.FC = () => {
             background: rgba(0, 0, 0, 0.3);
         }
 
-        `}
+        .chat-footer {
+            background: #f8f9fa;
+            padding: 6px 12px;
+            border-top: 1px solid var(--chat-border-color);
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+            border-radius: 0 0 16px 16px;
+        }
+
+        .chat-footer a {
+            color: var(--chat-primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .chat-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .chat-menu-container {
+          position: relative;
+        }
+
+        .chat-header-right {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          position: relative;
+          z-index: 200;
+        }
+
+        .chat-menu-btn {
+          background: none;
+          border: none;
+          font-size: 18px;
+          color: white;
+          cursor: pointer;
+          padding: 8px;
+          border-radius: 50%;
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          font-weight: bold;
+        }
+
+        .chat-menu-btn:hover {
+          background-color: rgba(255, 255, 255, 0.15);
+          transform: scale(1.1);
+        }
+        
+        .menu-wrapper {
+          position: relative;
+          z-index: 1000;
+        }
+
+        .chat-menu-dropdown {
+          position: absolute;
+          right: -60px;
+          background-color: #ffffff;
+          border: 1px solid #e0e0e0;
+          border-radius: 12px;
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+          z-index: 1001;
+          min-width: 160px;
+          overflow: hidden;
+          padding: 4px 0;
+          backdrop-filter: blur(8px);
+          animation: menuSlideIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes menuSlideIn {
+          from {
+            opacity: 0;
+            transform: translateY(-8px) scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
+        .chat-menu-dropdown button {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          width: 100%;
+          padding: 8px 16px;
+          background: none;
+          border: none;
+          text-align: left;
+          font-size: 14px;
+          font-weight: 500;
+          color: #333;
+          cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .chat-menu-dropdown button:hover {
+          background-color: #f8f9fa;
+          color: var(--chat-primary-color);
+          transform: translateX(2px);
+        }
+
+        .chat-menu-dropdown button:active {
+          background-color: rgba(0, 123, 255, 0.1);
+          transform: translateX(0);
+        }
+
+        /* Add a subtle arrow to the dropdown */
+        .chat-menu-dropdown::before {
+          content: '';
+          position: absolute;
+          top: 12px;
+          left: -6px;
+          width: 12px;
+          height: 12px;
+          background-color: #ffffff;
+          border-left: 1px solid #e0e0e0;
+          border-bottom: 1px solid #e0e0e0;
+          transform: rotate(45deg);
+          z-index: -1;
+        }
+      `}
       </style>
       {/* Chat Button & Window */}
       <div id="chat-button-container">
-        <button id="chat-button" onClick={() => setIsChatOpen(!isChatOpen)}>
+        <button id="chat-button" onClick={toggleChat}>
           <span className="chat-icon-simple"></span>
           <div className="chat-dots">
             <div className="chat-dot"></div>
             <div className="chat-dot"></div>
             <div className="chat-dot"></div>
           </div>
+          {hasNotification && !isChatOpen && (
+            <div className="chat-notification">!</div>
+          )}
         </button>
+
         {isChatOpen && (
-          <div className="chat-window">
+          <div className={`chat-window ${isExpanded ? "expanded" : ""}`}>
             <div className="chat-header">
               <div className="header-left">
                 <button className="expand-btn" onClick={() => toggleClick()}>
@@ -438,24 +686,92 @@ const ChatWidget: React.FC = () => {
                 </button>
                 <span>Chat with us</span>
               </div>
+
+              <div className="chat-header-right">
+                <div className="menu-wrapper" ref={menuRef}>
+                  <button
+                    className="chat-menu-btn"
+                    onClick={() => setShowMenu((prev) => !prev)}
+                    aria-label="Open Menu"
+                  >
+                    ⋮
+                  </button>
+
+                  {showMenu && (
+                    <div className="chat-menu-dropdown">
+                      <button onClick={handleRestartChat}>
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M15.9775 8.71452L15.5355 8.2621C13.5829 6.26318 10.4171 6.26318 8.46447 8.2621C6.51184 10.261 6.51184 13.5019 8.46447 15.5008C10.4171 17.4997 13.5829 17.4997 15.5355 15.5008C16.671 14.3384 17.1462 12.7559 16.9611 11.242M15.9775 8.71452H13.3258M15.9775 8.71452V6"
+                            stroke="#1C274C"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8"
+                            stroke="#1C274C"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                          />
+                        </svg>
+                        Restart Chat
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                <button
+                  className="chat-close-btn"
+                  onClick={() => setIsChatOpen(false)}
+                >
+                  <span className="close-icon"></span>
+                </button>
+              </div>
+            </div>
+
+            <div className="chat-tabs">
               <button
-                className="chat-close-btn"
-                onClick={() => setIsChatOpen(false)}
+                className={`chat-tab ${activeTab === "chat" ? "active" : ""}`}
+                onClick={() => setActiveTab("chat")}
               >
-                <span className="close-icon"></span>
+                Chat
+              </button>
+              <button
+                className={`chat-tab ${activeTab === "faq" ? "active" : ""}`}
+                onClick={() => setActiveTab("faq")}
+              >
+                Ask AI
               </button>
             </div>
+
             <div className="chat-content">
-              {/* Embed the chat iframe */}
               <iframe
-                src="https://gate.convonest.com/contacts/load-script"
+                ref={iframeRef}
+                src="http://localhost:8090/contacts/load-script"
                 style={{
                   width: "100%",
-                  height: "calc(100% - 5px)", // ✅ Properly expands iframe
+                  height: "calc(100% - 5px)",
                   border: "none",
                 }}
                 title="Chat"
               />
+            </div>
+            <div className="chat-footer">
+              Powered by{" "}
+              <a
+                href="https://convonest.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Convonest
+              </a>
             </div>
           </div>
         )}
