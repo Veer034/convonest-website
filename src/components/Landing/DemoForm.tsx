@@ -8,8 +8,9 @@ import {
   Select,
   SelectItem,
 } from "@nextui-org/react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import phoneCodes from "./phoneCodes.json"; // Updated JSON file
+import { ListboxItemProps } from "@nextui-org/react";
 
 interface DemoFormProps {
   selectedPlan?: string;
@@ -121,6 +122,32 @@ const DemoForm: React.FC<DemoFormProps> = ({ selectedPlan = "", onClose }) => {
     "23:30",
   ];
 
+  useEffect(() => {
+    // Store original styles
+    const originalOverflow = document.body.style.overflow;
+    const originalPosition = document.body.style.position;
+    const originalTop = document.body.style.top;
+    const originalWidth = document.body.style.width;
+
+    // Get current scroll position
+    const scrollY = window.scrollY;
+
+    // Lock body scroll completely
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
+    document.body.style.overflow = "hidden";
+
+    // Cleanup function to restore original styles and scroll position
+    return () => {
+      document.body.style.position = originalPosition;
+      document.body.style.top = originalTop;
+      document.body.style.width = originalWidth;
+      document.body.style.overflow = originalOverflow;
+      window.scrollTo(0, scrollY);
+    };
+  }, []);
+
   // Get user's timezone on component mount
   useEffect(() => {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -145,6 +172,23 @@ const DemoForm: React.FC<DemoFormProps> = ({ selectedPlan = "", onClose }) => {
   const handleInputChange = (field: keyof FormData, value: string): void => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
+
+  const handlePhoneChange = (value: string): void => {
+    // Allow only numbers, spaces, hyphens, parentheses, and plus signs
+    const phoneRegex = /^[0-9\s\-\(\)\+]*$/;
+    if (phoneRegex.test(value) || value === "") {
+      handleInputChange("phone", value);
+    }
+  };
+
+  const phoneCodeMap = new Map(phoneCodes.map((p) => [p.code, p]));
+
+  const memoizedRenderValue = useCallback((items: ListboxItemProps[]) => {
+    return items.map((item) => {
+      const phoneCode = phoneCodeMap.get(item.key as string);
+      return phoneCode ? `${phoneCode.code} ${phoneCode.label}` : item.key;
+    });
+  }, []);
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
@@ -407,16 +451,7 @@ const DemoForm: React.FC<DemoFormProps> = ({ selectedPlan = "", onClose }) => {
                               "bg-white border-slate-200 hover:border-blue-400 data-[open=true]:border-blue-500",
                             value: "text-sm",
                           }}
-                          renderValue={(items) => {
-                            return items.map((item) => {
-                              const phoneCode = phoneCodes.find(
-                                (code) => code.code === item.key
-                              );
-                              return phoneCode
-                                ? `${phoneCode.code} ${phoneCode.label}`
-                                : item.key;
-                            });
-                          }}
+                          renderValue={memoizedRenderValue}
                         >
                           {phoneCodes.map((phoneCode, index) => (
                             <SelectItem
@@ -433,9 +468,7 @@ const DemoForm: React.FC<DemoFormProps> = ({ selectedPlan = "", onClose }) => {
                           label="Phone Number"
                           placeholder="123-456-7890"
                           value={formData.phone}
-                          onChange={(e) =>
-                            handleInputChange("phone", e.target.value)
-                          }
+                          onChange={(e) => handlePhoneChange(e.target.value)}
                           required
                           size="sm"
                           className="flex-1"

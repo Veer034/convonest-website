@@ -1,3 +1,5 @@
+// Create file names ChatWidget.jsx, and import it in main react jsx page
+
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 
@@ -15,7 +17,7 @@ const ChatWidget: React.FC = () => {
     if (!chatWindow) return;
 
     if (isChatOpen) {
-      chatWindow.style.display = "flex";
+      chatWindow.style.display = "flex"; // Ensures it's visible
       chatWindow.style.width = isExpanded ? "500px" : "380px";
       chatWindow.style.height = isExpanded ? "700px" : "520px";
       chatWindow.classList.add("chat-show");
@@ -190,61 +192,22 @@ const ChatWidget: React.FC = () => {
         }
     
         .chat-header {
-            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            background: #007bff;
             color: #ffffff;
             padding: 5px;
             font-weight: 600;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            
             backdrop-filter: blur(8px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             z-index: 100;
         }
 
-        /* Tab Navigation Styles */
-        .chat-tabs {
-            display: flex;
-            background: #f8f9fa;
-            border-bottom: 1px solid var(--chat-border-color);
-            position: relative;
-            z-index: 50;
-        }
-
-        .chat-tab {
-            flex: 1;
-            padding: 12px 16px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            color: #666;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        .chat-tab:hover {
-            color: var(--chat-primary-color);
-            background: rgba(0, 123, 255, 0.05);
-        }
-
-        .chat-tab.active {
-            color: var(--chat-primary-color);
-            background: var(--chat-bg-color);
-        }
-
-        .chat-tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--chat-primary-color);
-        }
-    
+        
+          
          .chat-content {
             flex-grow: 1;
             overflow-y: auto;
@@ -268,6 +231,7 @@ const ChatWidget: React.FC = () => {
             from { transform: translateY(0); opacity: 1; }
             to { transform: translateY(20px); opacity: 0; }
         }
+    
     
         .chat-show {
             display: flex;
@@ -520,7 +484,6 @@ const ChatWidget: React.FC = () => {
         .chat-content::-webkit-scrollbar-thumb:hover {
             background: rgba(0, 0, 0, 0.3);
         }
-
         .chat-footer {
             background: #f8f9fa;
             padding: 6px 12px;
@@ -647,7 +610,9 @@ const ChatWidget: React.FC = () => {
           transform: rotate(45deg);
           z-index: -1;
         }
-      `}
+            
+
+        `}
       </style>
       {/* Chat Button & Window */}
       <div id="chat-button-container">
@@ -662,7 +627,6 @@ const ChatWidget: React.FC = () => {
             <div className="chat-notification">!</div>
           )}
         </button>
-
         {isChatOpen && (
           <div className={`chat-window ${isExpanded ? "expanded" : ""}`}>
             <div className="chat-header">
@@ -736,28 +700,14 @@ const ChatWidget: React.FC = () => {
               </div>
             </div>
 
-            <div className="chat-tabs">
-              <button
-                className={`chat-tab ${activeTab === "chat" ? "active" : ""}`}
-                onClick={() => setActiveTab("chat")}
-              >
-                Chat
-              </button>
-              <button
-                className={`chat-tab ${activeTab === "faq" ? "active" : ""}`}
-                onClick={() => setActiveTab("faq")}
-              >
-                Ask AI
-              </button>
-            </div>
-
             <div className="chat-content">
+              {/* Embed the chat iframe */}
               <iframe
-                ref={iframeRef}
                 src="http://localhost:8090/contacts/load-script"
+                ref={iframeRef}
                 style={{
                   width: "100%",
-                  height: "calc(100% - 5px)",
+                  height: "calc(100% - 5px)", // ✅ Properly expands iframe
                   border: "none",
                 }}
                 title="Chat"
