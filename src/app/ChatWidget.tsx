@@ -4,11 +4,12 @@
 import React, { useState, useEffect, useRef } from "react";
 
 const ChatWidget: React.FC = () => {
-  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false); // ✅ Start with chat open
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState("chat");
   const [hasNotification, setHasNotification] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const [isIframeLoaded, setIsIframeLoaded] = useState(false); // ✅ Track iframe load state
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -41,7 +42,11 @@ const ChatWidget: React.FC = () => {
   // Listen for messages from iframe to change tab data
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== "http://localhost:8090") return;
+      // console.log("Original message from iframe origin:", event.origin);
+      // console.log("Original message from iframe data:", event.data);
+      if (event.origin !== "https://gate.convonest.com") return;
+
+      // console.log("Received message from iframe:", event.data);
 
       if (event.data.type === "CHANGE_TAB") {
         setActiveTab(event.data.tabName || "chat");
@@ -51,6 +56,12 @@ const ChatWidget: React.FC = () => {
       if (event.data.type === "NEW_MESSAGE" && !isChatOpen) {
         setHasNotification(true);
       }
+
+      // ✅ Listen for iframe ready signal
+      if (event.data.type === "IFRAME_READY") {
+        // console.log("iframe loaded messages");
+        setIsIframeLoaded(true);
+      }
     };
 
     window.addEventListener("message", handleMessage);
@@ -59,16 +70,27 @@ const ChatWidget: React.FC = () => {
 
   // Send tab change to iframe when tab changes
   useEffect(() => {
-    if (iframeRef.current?.contentWindow) {
+    if (isIframeLoaded && iframeRef.current?.contentWindow) {
+      // console.log("Sending CHANGE_TAB message:", activeTab);
       iframeRef.current.contentWindow.postMessage(
         {
           type: "CHANGE_TAB",
           activeTab: activeTab,
         },
-        "http://localhost:8090"
+        "https://gate.convonest.com"
       );
     }
-  }, [activeTab]);
+  }, [activeTab, isIframeLoaded]);
+
+  // ✅ Set color when iframe loads
+  useEffect(() => {
+    if (isIframeLoaded) {
+      // Add delay to ensure iframe scripts are fully loaded
+      setTimeout(() => {
+        setChatWidgetInternalColour();
+      }, 1000); // Increased delay for production
+    }
+  }, [isIframeLoaded]);
 
   const toggleClick = () => {
     setIsExpanded(!isExpanded);
@@ -83,13 +105,50 @@ const ChatWidget: React.FC = () => {
   };
 
   const handleRestartChat = () => {
-    if (iframeRef.current?.contentWindow) {
+    if (isIframeLoaded && iframeRef.current?.contentWindow) {
       iframeRef.current.contentWindow.postMessage(
         { type: "RESTART_CHAT" },
-        "http://localhost:8090"
+        "https://gate.convonest.com"
       );
     }
     setShowMenu(false);
+  };
+
+  const setChatWidgetInternalColour = () => {
+    if (isIframeLoaded && iframeRef.current?.contentWindow) {
+      // Add multiple retry attempts for production reliability
+      const sendColorMessage = (attempt = 0) => {
+        try {
+          iframeRef.current?.contentWindow?.postMessage(
+            {
+              type: "COLOUR_SET",
+              value: {
+                primaryColor: "#007bff",
+                bgColor: "#ffffff",
+              },
+            },
+            "https://gate.convonest.com"
+          );
+          // console.log("Color message sent successfully, attempt:", attempt + 1);
+        } catch (error) {
+          console.error("Failed to send color message:", error);
+          if (attempt < 2) {
+            setTimeout(() => sendColorMessage(attempt + 1), 500);
+          }
+        }
+      };
+
+      sendColorMessage();
+    }
+  };
+
+  // ✅ Handle iframe load event
+  const handleIframeLoad = () => {
+    // console.log("Iframe loaded");
+    // Small delay to ensure iframe is fully initialized
+    setTimeout(() => {
+      setIsIframeLoaded(true);
+    }, 100);
   };
 
   useEffect(() => {
@@ -703,8 +762,9 @@ const ChatWidget: React.FC = () => {
             <div className="chat-content">
               {/* Embed the chat iframe */}
               <iframe
-                src="http://localhost:8090/contacts/load-script"
+                src="https://gate.convonest.com/contacts/load-script"
                 ref={iframeRef}
+                onLoad={handleIframeLoad} // ✅ Add onLoad event
                 style={{
                   width: "100%",
                   height: "calc(100% - 5px)", // ✅ Properly expands iframe
