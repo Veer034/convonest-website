@@ -47,7 +47,6 @@ const ChatWidget: React.FC = () => {
       if (event.origin !== "https://gate.convonest.com") return;
 
       // console.log("Received message from iframe:", event.data);
-
       if (event.data.type === "CHANGE_TAB") {
         setActiveTab(event.data.tabName || "chat");
       }
@@ -83,6 +82,7 @@ const ChatWidget: React.FC = () => {
   }, [activeTab, isIframeLoaded]);
 
   // ✅ Set color when iframe loads
+
   useEffect(() => {
     if (isIframeLoaded) {
       // Add delay to ensure iframe scripts are fully loaded
@@ -114,6 +114,8 @@ const ChatWidget: React.FC = () => {
     setShowMenu(false);
   };
 
+  // Set chat widget internal colors
+
   const setChatWidgetInternalColour = () => {
     if (isIframeLoaded && iframeRef.current?.contentWindow) {
       // Add multiple retry attempts for production reliability
@@ -124,7 +126,10 @@ const ChatWidget: React.FC = () => {
               type: "COLOUR_SET",
               value: {
                 primaryColor: "#007bff",
-                bgColor: "#ffffff",
+                agentTextBgColour: "#e3f2fd",
+                agentTextColour: "#1565c0",
+                customerTextBgColour: "#007bff",
+                customerTextColour: "#ffffff",
               },
             },
             "https://gate.convonest.com"
@@ -139,6 +144,8 @@ const ChatWidget: React.FC = () => {
       };
 
       sendColorMessage();
+    } else {
+      console.log("Iframe not ready or not loaded yet");
     }
   };
 
@@ -176,7 +183,6 @@ const ChatWidget: React.FC = () => {
             --chat-primary-color: #007bff;
             --chat-primary-hover: #0062cc;
             --chat-bg-color: #ffffff;
-            --chat-text-color: #333333;
             --chat-border-color: #e6e6e6;
             --chat-shadow-color: rgba(0, 0, 0, 0.15);
         }
