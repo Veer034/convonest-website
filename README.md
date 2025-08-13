@@ -2,7 +2,7 @@
 
 ## Command to buld and export
 
-yarn build && yarn export
+yarn build
 
 ## Command to start
 
