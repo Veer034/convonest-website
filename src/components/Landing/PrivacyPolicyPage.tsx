@@ -61,7 +61,7 @@ const PrivacyPolicyPage = () => {
       className={`min-h-screen ${theme === "dark" ? "text-white" : "text-slate-800"}`}
     >
       {/* Privacy Policy Hero Section */}
-      <div className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-20 lg:py-28">
+      <div className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 pt-10 lg:pt-14 pb-0">
         <div className="container mx-auto px-6 sm:px-8 lg:px-10">
           <div className="text-center mb-16">
             <span className="inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-800 mb-4">
@@ -87,7 +87,7 @@ const PrivacyPolicyPage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="bg-white py-20">
+      <div className="bg-white py-0">
         <div className="container mx-auto px-6 sm:px-8 lg:px-10">
           <div className="flex flex-col lg:flex-row gap-12">
             {/* Sticky Navigation */}

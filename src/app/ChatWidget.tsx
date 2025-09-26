@@ -272,6 +272,48 @@ const ChatWidget: React.FC = () => {
         }
 
         
+            /* Conditionally added styles when faqSelected is true */
+            .chat-tabs {
+              display: flex;
+              background: #f8f9fa;
+              border-bottom: 1px solid var(--chat-border-color);
+              position: relative;
+              z-index: 50;
+            }
+      
+            .chat-tab {
+              flex: 1;
+              padding: 12px 16px;
+              color: var(--chat-primary-color);
+              background: var(--chat-bg-color);
+              border: none;
+              cursor: pointer;
+              font-size: 14px;
+              font-weight: 500;
+              color: #666;
+              transition: all 0.2s ease;
+              position: relative;
+            }
+      
+            .chat-tab:hover {
+              color: var(--chat-primary-color);
+            }
+      
+            .chat-tab.active {
+              color: var(--chat-primary-color);
+              background: var(--chat-bg-color);
+            }
+      
+            .chat-tab.active::after {
+              content: '';
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              height: 2px;
+              background: var(--chat-primary-color);
+            }
+          
           
          .chat-content {
             flex-grow: 1;
@@ -610,7 +652,7 @@ const ChatWidget: React.FC = () => {
 
         .chat-menu-dropdown {
           position: absolute;
-          right: -60px;
+          right: -45px;
           background-color: #ffffff;
           border: 1px solid #e0e0e0;
           border-radius: 12px;
@@ -765,6 +807,21 @@ const ChatWidget: React.FC = () => {
               </div>
             </div>
 
+            <div className="chat-tabs">
+              <button
+                className={`chat-tab ${activeTab === "chat" ? "active" : ""}`}
+                onClick={() => setActiveTab("chat")}
+              >
+                Chat
+              </button>
+              <button
+                className={`chat-tab ${activeTab === "faq" ? "active" : ""}`}
+                onClick={() => setActiveTab("faq")}
+              >
+                Ask AI
+              </button>
+            </div>
+
             <div className="chat-content">
               {/* Embed the chat iframe */}
               <iframe
@@ -779,16 +836,7 @@ const ChatWidget: React.FC = () => {
                 title="Chat"
               />
             </div>
-            <div className="chat-footer">
-              Powered by{" "}
-              <a
-                href="https://convonest.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Convonest
-              </a>
-            </div>
+            <div className="chat-footer">Powered by Convonest</div>
           </div>
         )}
       </div>
