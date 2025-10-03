@@ -247,6 +247,32 @@ const LandingPage = () => {
               Transforming Customer Engagement with AI-Powered Solutions
             </p>
           </div>
+          <div className="flex flex-wrap justify-center gap-6 mb-4">
+            <a
+              href="/privacy"
+              className="text-slate-400 hover:text-white transition"
+            >
+              Privacy Policy
+            </a>
+            <a
+              href="/terms"
+              className="text-slate-400 hover:text-white transition"
+            >
+              Terms of Service
+            </a>
+            <a
+              href="/contact"
+              className="text-slate-400 hover:text-white transition"
+            >
+              Contact
+            </a>
+            <a
+              href="/about"
+              className="text-slate-400 hover:text-white transition"
+            >
+              About
+            </a>
+          </div>
           <div className="border-t border-slate-700 pt-8">
             <p className="text-slate-400">
               © 2025 Convonest Analytics. All rights reserved. Powered by

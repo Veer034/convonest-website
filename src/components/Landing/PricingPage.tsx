@@ -27,8 +27,8 @@ const PricingPage = () => {
   const pricingPlans = [
     {
       name: "Basic Plan",
-      price: isAnnual ? 20 : 25,
-      originalPrice: 25,
+      price: isAnnual ? 25 : 29,
+      originalPrice: 29,
       period: "per agent/month",
       description:
         "Perfect for small teams getting started with AI-powered customer support",
@@ -49,8 +49,8 @@ const PricingPage = () => {
     },
     {
       name: "Pro Plan",
-      price: isAnnual ? 36 : 45,
-      originalPrice: 45,
+      price: isAnnual ? 45 : 49,
+      originalPrice: 49,
       period: "per agent/month",
       description:
         "Ideal for growing businesses with advanced automation needs",
@@ -168,7 +168,7 @@ const PricingPage = () => {
               </span>
               {isAnnual && (
                 <span className="ml-2 rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-800">
-                  Save 20%
+                  Save with annual billing
                 </span>
               )}
             </div>
