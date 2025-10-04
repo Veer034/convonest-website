@@ -13,6 +13,7 @@ import {
 
 import React from "react";
 import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 
 interface IconProps {
   fill?: string;
@@ -130,6 +131,14 @@ export default function App() {
             </button>
           </NavbarItem>
         ))}
+        <NavbarItem>
+          <Link
+            href="/privacy"
+            className="relative text-slate-700 font-medium transition-all duration-300 hover:text-blue-600 after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:bg-gradient-to-r after:from-blue-500 after:to-indigo-500 after:transition-all after:duration-300 hover:after:w-full"
+          >
+            Privacy
+          </Link>
+        </NavbarItem>
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex" justify="end">
@@ -158,6 +167,15 @@ export default function App() {
               </button>
             </NavbarMenuItem>
           ))}
+          <NavbarMenuItem>
+            <Link
+              href="/privacy"
+              className="flex w-full items-center rounded-lg px-4 py-3 text-left text-lg font-medium text-slate-700 transition-all duration-200 hover:bg-blue-50 hover:text-blue-600"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Privacy Policy
+            </Link>
+          </NavbarMenuItem>
         </div>
       </NavbarMenu>
     </Navbar>

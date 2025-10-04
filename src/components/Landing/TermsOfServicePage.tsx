@@ -11,6 +11,7 @@ const TermsOfServicePage = () => {
   const navigationSections = [
     { id: "introduction", title: "Introduction", icon: "📜" },
     { id: "service-usage", title: "Service Usage", icon: "⚙️" },
+    { id: "third-party", title: "Third-Party Integrations", icon: "🔗" },
     { id: "payments", title: "Payments & Refunds", icon: "💰" },
     { id: "liability", title: "Limitation of Liability", icon: "⚠️" },
     { id: "data-handling", title: "Data Handling", icon: "💾" },
@@ -65,7 +66,7 @@ const TermsOfServicePage = () => {
             </h1>
             <p className="mx-auto max-w-3xl text-xl leading-relaxed text-slate-600 sm:text-2xl">
               These Terms of Service outline the rules, responsibilities, and
-              rights for using Convonest’s AI-powered customer engagement
+              rights for using Convonest's AI-powered customer engagement
               platform.
             </p>
           </div>
@@ -131,12 +132,251 @@ const TermsOfServicePage = () => {
                       <h2 className="text-3xl font-bold text-slate-800 mb-4">
                         ⚙️ Service Usage
                       </h2>
-                      <p className="text-slate-600 text-lg">
+                      <p className="text-slate-600 text-lg mb-4">
                         Users must use our platform in accordance with all
                         applicable laws and regulations. Misuse of the platform,
                         including unauthorized access or interference with other
                         users' data, may result in termination of access.
                       </p>
+                    </CardBody>
+                  </Card>
+                </section>
+
+                {/* Third-Party Integrations */}
+                <section id="third-party" className="scroll-mt-20">
+                  <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <CardBody className="p-8">
+                      <h2 className="text-3xl font-bold text-slate-800 mb-6">
+                        🔗 Third-Party Integrations
+                      </h2>
+
+                      <div className="space-y-6">
+                        <p className="text-slate-600 text-lg">
+                          Our platform integrates with third-party services to
+                          enhance functionality and provide seamless customer
+                          engagement across multiple channels.
+                        </p>
+
+                        <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                          <h3 className="text-xl font-bold text-slate-800 mb-4">
+                            Supported Integrations
+                          </h3>
+                          <ul className="space-y-2 text-slate-600">
+                            <li>• Gmail (Google Workspace)</li>
+                            <li>• Microsoft Outlook (Microsoft 365)</li>
+                            <li>
+                              • Other communication platforms as may be added
+                            </li>
+                          </ul>
+                        </div>
+
+                        <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+                          <h3 className="text-xl font-bold text-slate-800 mb-4">
+                            By Connecting These Services, You:
+                          </h3>
+                          <ul className="space-y-3 text-slate-600">
+                            <li>
+                              • <strong>Authorize Convonest</strong> to access
+                              data according to granted permissions
+                            </li>
+                            <li>
+                              • <strong>Acknowledge</strong> that third-party
+                              terms of service also apply
+                            </li>
+                            <li>
+                              • <strong>Understand</strong> that service
+                              availability depends on third-party API
+                              availability
+                            </li>
+                            <li>
+                              • <strong>Are responsible</strong> for maintaining
+                              valid credentials and subscriptions with
+                              third-party providers
+                            </li>
+                          </ul>
+                        </div>
+
+                        <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 border-0">
+                          <CardBody className="p-6">
+                            <h3 className="text-xl font-bold text-slate-800 mb-4">
+                              📧 Gmail / Google Workspace Integration
+                            </h3>
+
+                            <div className="space-y-4 text-slate-600">
+                              <div>
+                                <h4 className="font-bold text-slate-800 mb-2">
+                                  Authorization & Permissions
+                                </h4>
+                                <ul className="space-y-2 text-sm ml-4">
+                                  <li>
+                                    • You grant Convonest permission to access
+                                    your Gmail account using Google OAuth 2.0
+                                  </li>
+                                  <li>
+                                    • We request only the minimum permissions
+                                    necessary: gmail.readonly and gmail.send
+                                  </li>
+                                  <li>
+                                    • You can revoke access at any time through
+                                    Google Account settings
+                                  </li>
+                                </ul>
+                              </div>
+
+                              <div>
+                                <h4 className="font-bold text-slate-800 mb-2">
+                                  Google Terms Compliance
+                                </h4>
+                                <ul className="space-y-2 text-sm ml-4">
+                                  <li>
+                                    • Our use of Gmail API is subject to
+                                    Google's API Terms of Service
+                                  </li>
+                                  <li>
+                                    • Google's Privacy Policy applies to data
+                                    accessed through their services
+                                  </li>
+                                  <li>
+                                    • We comply with Google API Services User
+                                    Data Policy
+                                  </li>
+                                </ul>
+                              </div>
+
+                              <div>
+                                <h4 className="font-bold text-slate-800 mb-2">
+                                  Data Usage Limits
+                                </h4>
+                                <ul className="space-y-2 text-sm ml-4">
+                                  <li>
+                                    • We use Gmail API within permitted rate
+                                    limits and quotas
+                                  </li>
+                                  <li>
+                                    • Service interruptions may occur due to
+                                    Google's service availability
+                                  </li>
+                                  <li>
+                                    • We are not responsible for changes to
+                                    Google's API or policies
+                                  </li>
+                                </ul>
+                              </div>
+
+                              <div>
+                                <h4 className="font-bold text-slate-800 mb-2">
+                                  Workspace Administrator
+                                </h4>
+                                <ul className="space-y-2 text-sm ml-4">
+                                  <li>
+                                    • Google Workspace customers may have
+                                    additional security policies
+                                  </li>
+                                  <li>
+                                    • Contact your IT administrator if access is
+                                    restricted by organizational policies
+                                  </li>
+                                  <li>
+                                    • Domain-wide delegation may be required for
+                                    some enterprise deployments
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </CardBody>
+                        </Card>
+
+                        <Card className="bg-gradient-to-br from-indigo-50 to-purple-50 border-0">
+                          <CardBody className="p-6">
+                            <h3 className="text-xl font-bold text-slate-800 mb-4">
+                              📧 Microsoft 365 / Outlook Integration
+                            </h3>
+
+                            <div className="space-y-4 text-slate-600">
+                              <div>
+                                <h4 className="font-bold text-slate-800 mb-2">
+                                  Authorization & Permissions
+                                </h4>
+                                <ul className="space-y-2 text-sm ml-4">
+                                  <li>
+                                    • You grant Convonest permission to access
+                                    your Microsoft 365 account using OAuth 2.0
+                                  </li>
+                                  <li>
+                                    • We request only the minimum permissions
+                                    necessary: Mail.Read and Mail.Send
+                                  </li>
+                                  <li>
+                                    • You can revoke access at any time through
+                                    Microsoft Account settings
+                                  </li>
+                                </ul>
+                              </div>
+
+                              <div>
+                                <h4 className="font-bold text-slate-800 mb-2">
+                                  Microsoft Terms Compliance
+                                </h4>
+                                <ul className="space-y-2 text-sm ml-4">
+                                  <li>
+                                    • Our use of Microsoft Graph API is subject
+                                    to Microsoft's API Terms of Use
+                                  </li>
+                                  <li>
+                                    • Microsoft's Privacy Statement applies to
+                                    data accessed through their services
+                                  </li>
+                                  <li>
+                                    • We comply with Microsoft's App Developer
+                                    Agreement
+                                  </li>
+                                </ul>
+                              </div>
+
+                              <div>
+                                <h4 className="font-bold text-slate-800 mb-2">
+                                  Data Usage Limits
+                                </h4>
+                                <ul className="space-y-2 text-sm ml-4">
+                                  <li>
+                                    • We use Microsoft Graph API within
+                                    permitted rate limits
+                                  </li>
+                                  <li>
+                                    • Service interruptions may occur due to
+                                    Microsoft's service availability
+                                  </li>
+                                  <li>
+                                    • We are not responsible for changes to
+                                    Microsoft's API or policies
+                                  </li>
+                                </ul>
+                              </div>
+
+                              <div>
+                                <h4 className="font-bold text-slate-800 mb-2">
+                                  Administrator Consent
+                                </h4>
+                                <ul className="space-y-2 text-sm ml-4">
+                                  <li>
+                                    • Enterprise customers may require
+                                    administrator consent for tenant-wide
+                                    deployment
+                                  </li>
+                                  <li>
+                                    • Contact your IT administrator if you
+                                    cannot authorize the integration
+                                  </li>
+                                  <li>
+                                    • We provide admin consent workflows for
+                                    enterprise deployments
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </CardBody>
+                        </Card>
+                      </div>
                     </CardBody>
                   </Card>
                 </section>
@@ -178,13 +418,29 @@ const TermsOfServicePage = () => {
                       <h2 className="text-3xl font-bold text-slate-800 mb-4">
                         ⚠️ Limitation of Liability
                       </h2>
-                      <p className="text-slate-600 text-lg">
-                        The company is not liable for any indirect, incidental,
-                        or consequential damages resulting from the use or
-                        inability to use the service. This includes loss of
-                        profits, business interruption, or loss of data, except
-                        where required by law.
-                      </p>
+                      <div className="space-y-4">
+                        <p className="text-slate-600 text-lg">
+                          The company is not liable for any indirect,
+                          incidental, or consequential damages resulting from
+                          the use or inability to use the service. This includes
+                          loss of profits, business interruption, or loss of
+                          data, except where required by law.
+                        </p>
+
+                        <div className="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg">
+                          <h3 className="text-lg font-bold text-orange-800 mb-3">
+                            Third-Party Service Dependencies
+                          </h3>
+                          <p className="text-orange-700">
+                            We are not liable for service disruptions, data
+                            loss, or functionality issues caused by third-party
+                            providers (including Google, Microsoft, or other
+                            integrated services). This includes API changes,
+                            service outages, or policy modifications by these
+                            providers.
+                          </p>
+                        </div>
+                      </div>
                     </CardBody>
                   </Card>
                 </section>

@@ -234,6 +234,90 @@ const PrivacyPolicyPage = () => {
                             </CardBody>
                           </Card>
                         </div>
+
+                        <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg mt-6">
+                          <h4 className="font-bold text-blue-800 mb-3">
+                            📧 Gmail Integration
+                          </h4>
+                          <p className="text-blue-700 mb-3">
+                            With your authorization via Google OAuth, we access
+                            your Gmail to read customer emails (gmail.readonly)
+                            and send responses (gmail.send). This data is
+                            encrypted and stored securely in our platform.
+                          </p>
+                          <ul className="space-y-2 text-blue-700 text-sm">
+                            <li>
+                              • <strong>Purpose:</strong> Read customer emails
+                              for support ticket creation and send responses
+                            </li>
+                            <li>
+                              • <strong>Scopes:</strong> gmail.readonly,
+                              gmail.send
+                            </li>
+                            <li>
+                              • <strong>Storage:</strong> Email data is
+                              encrypted and stored in secure data centers in
+                              India
+                            </li>
+                            <li>
+                              • <strong>Revocation:</strong> You can revoke
+                              access anytime through your Google Account
+                              settings
+                            </li>
+                            <li>
+                              • <strong>Sharing:</strong> Email data is never
+                              shared with third parties
+                            </li>
+                          </ul>
+                        </div>
+
+                        <div className="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+                          <h4 className="font-bold text-indigo-800 mb-3">
+                            📧 Microsoft Outlook Integration
+                          </h4>
+                          <p className="text-indigo-700 mb-3">
+                            With your authorization via Microsoft OAuth 2.0, we
+                            access your Outlook/Microsoft 365 account to read
+                            customer emails and send responses. This data is
+                            encrypted and stored securely in our platform.
+                          </p>
+                          <ul className="space-y-2 text-indigo-700 text-sm">
+                            <li>
+                              • <strong>Purpose:</strong> Read customer emails
+                              for support ticket creation and send responses
+                            </li>
+                            <li>
+                              • <strong>Scopes:</strong> Mail.Read, Mail.Send,
+                              offline_access
+                            </li>
+                            <li>
+                              • <strong>Storage:</strong> Email data is
+                              encrypted and stored in secure data centers in
+                              India
+                            </li>
+                            <li>
+                              • <strong>Revocation:</strong> You can revoke
+                              access anytime through your Microsoft Account
+                              settings at
+                              https://account.microsoft.com/privacy/app-access
+                            </li>
+                            <li>
+                              • <strong>Sharing:</strong> Email data is never
+                              shared with third parties
+                            </li>
+                            <li>
+                              • <strong>Microsoft Graph API:</strong> We use
+                              Microsoft Graph API to access your email data.
+                              Microsoft's own privacy policies also apply to
+                              data accessed through their services.
+                            </li>
+                            <li>
+                              • <strong>Data Processing:</strong> Email content,
+                              metadata (sender, recipient, timestamps), and
+                              attachments are processed to provide our services
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </CardBody>
                   </Card>
@@ -341,7 +425,7 @@ const PrivacyPolicyPage = () => {
                           We implement industry-standard security measures to
                           safeguard your data from unauthorized access, loss, or
                           misuse. Security is embedded in every stage of our
-                          platform’s design and operations.
+                          platform's design and operations.
                         </p>
 
                         {/* Access Controls First – shows strong internal discipline */}
@@ -378,6 +462,32 @@ const PrivacyPolicyPage = () => {
                                 <li>
                                   • Ongoing security monitoring and periodic
                                   internal audits
+                                </li>
+                              </ul>
+                            </CardBody>
+                          </Card>
+
+                          <Card className="bg-gradient-to-br from-indigo-50 to-indigo-100 border-0">
+                            <CardBody className="p-6">
+                              <h3 className="text-lg font-bold text-slate-800 mb-3">
+                                🛡️ Microsoft 365 Security Compliance
+                              </h3>
+                              <ul className="space-y-2 text-slate-600 text-sm">
+                                <li>• OAuth 2.0 with secure token storage</li>
+                                <li>
+                                  • Tokens encrypted at rest and in transit
+                                </li>
+                                <li>
+                                  • Regular security audits and penetration
+                                  testing
+                                </li>
+                                <li>
+                                  • Compliance with Microsoft's security
+                                  requirements
+                                </li>
+                                <li>
+                                  • No storage of user passwords (OAuth tokens
+                                  only)
                                 </li>
                               </ul>
                             </CardBody>
@@ -457,7 +567,9 @@ const PrivacyPolicyPage = () => {
                             enhancements. All AI processing is conducted
                             securely within our platform, and we do not share
                             your data with external AI services without your
-                            consent.
+                            consent. Email data from Gmail and Outlook
+                            integrations may be processed by our AI for
+                            classification, response suggestions, and analytics.
                           </p>
                         </div>
                       </div>
@@ -626,6 +738,15 @@ const PrivacyPolicyPage = () => {
                                   compliance
                                 </li>
                                 <li>• Anonymous analytics may be preserved</li>
+                                <li>
+                                  • Email data from third-party integrations
+                                  (Gmail, Outlook) is retained according to your
+                                  subscription plan
+                                </li>
+                                <li>
+                                  • Upon revocation of third-party access,
+                                  associated data is deleted within 30 days
+                                </li>
                               </ul>
                             </CardBody>
                           </Card>
