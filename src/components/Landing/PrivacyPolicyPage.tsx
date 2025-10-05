@@ -353,14 +353,18 @@ const PrivacyPolicyPage = () => {
                             <CardBody className="p-6">
                               <div className="text-3xl mb-3">🤖</div>
                               <h3 className="text-lg font-bold text-slate-800 mb-3">
-                                AI Enhancement
+                                Platform Improvement
                               </h3>
                               <p className="text-slate-600 text-sm">
-                                Improve our AI models and platform capabilities,
-                                such as enhancing classification accuracy,
-                                generating suggestions, optimizing workflows,
-                                and developing other features or insights as the
-                                platform evolves.
+                                Our AI systems continuously process data in real
+                                time to enhance the features you use, such as
+                                improving email classification, generating
+                                helpful response suggestions, and optimizing
+                                workflows. All enhancements are applied only to
+                                improve your personal experience within the
+                                platform and <strong> do not </strong>
+                                involve using Gmail or Outlook data to train
+                                general AI models.
                               </p>
                             </CardBody>
                           </Card>
@@ -372,10 +376,9 @@ const PrivacyPolicyPage = () => {
                                 Analytics & Reports
                               </h3>
                               <p className="text-slate-600 text-sm">
-                                Generate performance dashboards, customer
-                                insights, business analytics, and other
-                                reporting tools that may be introduced in the
-                                future to help improve your operations.
+                                Generate performance dashboards and analytics
+                                directly within our platform to help you manage
+                                and improve your customer engagement operations.
                               </p>
                             </CardBody>
                           </Card>
@@ -392,7 +395,8 @@ const PrivacyPolicyPage = () => {
                             </p>
                             <p>
                               • <strong>Legitimate Interest:</strong> To improve
-                              our platform and customer experience
+                              user-facing features and functionality that
+                              directly benefit you
                             </p>
                             <p>
                               • <strong>Consent:</strong> For marketing
@@ -401,6 +405,12 @@ const PrivacyPolicyPage = () => {
                             <p>
                               • <strong>Legal Compliance:</strong> To meet
                               regulatory and legal requirements
+                            </p>
+                            <p className="text-sm italic mt-2">
+                              Note: For Gmail data accessed via Google APIs, we
+                              rely on your explicit consent and use data only to
+                              provide or improve user-facing features of our
+                              service.
                             </p>
                           </div>
                         </div>
@@ -508,6 +518,7 @@ const PrivacyPolicyPage = () => {
                           Data Sharing
                         </h2>
                       </div>
+
                       <div className="space-y-6">
                         <p className="text-slate-600 text-lg">
                           We do not sell your data. We only share information in
@@ -554,24 +565,48 @@ const PrivacyPolicyPage = () => {
                             </CardBody>
                           </Card>
                         </div>
+                      </div>
+                    </CardBody>
+                  </Card>
 
-                        <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
-                          <h4 className="font-bold text-yellow-800 mb-3">
-                            🤖 AI Processing
-                          </h4>
-                          <p className="text-yellow-700">
-                            Your data may be processed by our AI systems to
-                            provide current and future features of our platform,
-                            such as (but not limited to) email classification,
-                            automated responses, analytics, and other
-                            enhancements. All AI processing is conducted
-                            securely within our platform, and we do not share
-                            your data with external AI services without your
-                            consent. Email data from Gmail and Outlook
-                            integrations may be processed by our AI for
-                            classification, response suggestions, and analytics.
-                          </p>
-                        </div>
+                  <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 mt-8">
+                    <CardBody className="p-8">
+                      <div className="flex items-center gap-3 mb-6">
+                        <span className="text-3xl">🤖</span>
+                        <h2 className="text-3xl font-bold text-slate-800">
+                          Email Integration & AI Processing
+                        </h2>
+                      </div>
+                      <div className="space-y-6">
+                        <p className="text-yellow-700 mb-3">
+                          Our AI systems process your data in real time to
+                          deliver and enhance user-facing features of our
+                          platform — such as email classification, automated
+                          response suggestions, and workflow optimization. These
+                          improvements are designed solely to enhance your
+                          personal experience within the platform.
+                        </p>
+
+                        <p className="text-yellow-700 mb-3">
+                          <strong>
+                            Important for Email Integration Users:
+                          </strong>{" "}
+                          Gmail and Outlook data accessed via APIs is processed{" "}
+                          <strong>only</strong> to provide the features you
+                          actively use within our service. We{" "}
+                          <strong>do not</strong> use this data to serve
+                          advertisements or share with third parties. All
+                          processing is done solely to provide the features you
+                          actively use within our service.
+                        </p>
+
+                        <p className="text-yellow-700">
+                          All AI processing occurs securely within our platform.
+                          Gmail and Outlook email data are stored solely to
+                          provide and maintain your email management features —
+                          such as reading, classifying, suggesting responses,
+                          and managing your customer communications.
+                        </p>
                       </div>
                     </CardBody>
                   </Card>
