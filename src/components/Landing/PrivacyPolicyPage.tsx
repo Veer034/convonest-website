@@ -8,7 +8,6 @@ const PrivacyPolicyPage = () => {
   const { theme } = useTheme();
   const [activeSection, setActiveSection] = useState("introduction");
 
-  // Navigation sections
   const navigationSections = [
     { id: "introduction", title: "Introduction", icon: "🔒" },
     {
@@ -23,7 +22,6 @@ const PrivacyPolicyPage = () => {
     { id: "retention", title: "Data Retention", icon: "⏰" },
   ];
 
-  // Auto-update active section based on scroll
   useEffect(() => {
     const handleScroll = () => {
       const sections = navigationSections.map((section) => ({
@@ -60,7 +58,6 @@ const PrivacyPolicyPage = () => {
       id="privacy-policy"
       className={`min-h-screen ${theme === "dark" ? "text-white" : "text-slate-800"}`}
     >
-      {/* Privacy Policy Hero Section */}
       <div className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 pt-10 lg:pt-14 pb-0">
         <div className="container mx-auto px-6 sm:px-8 lg:px-10">
           <div className="text-center mb-16">
@@ -86,11 +83,9 @@ const PrivacyPolicyPage = () => {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="bg-white py-0">
         <div className="container mx-auto px-6 sm:px-8 lg:px-10">
           <div className="flex flex-col lg:flex-row gap-12">
-            {/* Sticky Navigation */}
             <div className="lg:w-1/4">
               <div className="sticky top-8">
                 <Card className="bg-slate-50 border-0 shadow-lg">
@@ -120,10 +115,9 @@ const PrivacyPolicyPage = () => {
                 </Card>
               </div>
             </div>
-            {/* Content Sections */}
+
             <div className="lg:w-3/4 h-[80vh] overflow-y-auto pr-4">
               <div className="space-y-16">
-                {/* Introduction */}
                 <section id="introduction" className="scroll-mt-20">
                   <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <CardBody className="p-8">
@@ -162,7 +156,6 @@ const PrivacyPolicyPage = () => {
                   </Card>
                 </section>
 
-                {/* Information Collection */}
                 <section id="information-collection" className="scroll-mt-20">
                   <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <CardBody className="p-8">
@@ -237,93 +230,44 @@ const PrivacyPolicyPage = () => {
 
                         <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg mt-6">
                           <h4 className="font-bold text-blue-800 mb-3">
-                            📧 Gmail Integration
+                            📧 Email Integration
                           </h4>
                           <p className="text-blue-700 mb-3">
-                            With your authorization via Google OAuth, we access
-                            your Gmail to read customer emails (gmail.readonly)
-                            and send responses (gmail.send). This data is
-                            encrypted and stored securely in our platform.
+                            When you connect your email account to our platform,
+                            we access your emails to provide customer support
+                            management features. You can connect via:
                           </p>
                           <ul className="space-y-2 text-blue-700 text-sm">
                             <li>
-                              • <strong>Purpose:</strong> Read customer emails
-                              for support ticket creation and send responses
+                              • <strong>IMAP Protocol:</strong> Standard email
+                              protocol using app-specific passwords
                             </li>
                             <li>
-                              • <strong>Scopes:</strong> gmail.readonly,
-                              gmail.send
-                            </li>
-                            <li>
-                              • <strong>Storage:</strong> Email data is
-                              encrypted and stored in secure data centers in
-                              India
-                            </li>
-                            <li>
-                              • <strong>Revocation:</strong> You can revoke
-                              access anytime through your Google Account
-                              settings
-                            </li>
-                            <li>
-                              • <strong>Sharing:</strong> Email data is never
-                              shared with third parties
+                              • <strong>Microsoft OAuth 2.0:</strong> Secure
+                              authorization for Outlook/Microsoft 365 accounts
                             </li>
                           </ul>
-                        </div>
-
-                        <div className="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
-                          <h4 className="font-bold text-indigo-800 mb-3">
-                            📧 Microsoft Outlook Integration
-                          </h4>
-                          <p className="text-indigo-700 mb-3">
-                            With your authorization via Microsoft OAuth 2.0, we
-                            access your Outlook/Microsoft 365 account to read
-                            customer emails and send responses. This data is
-                            encrypted and stored securely in our platform.
+                          <p className="text-blue-700 mt-3 mb-2">
+                            <strong>What we access:</strong>
                           </p>
-                          <ul className="space-y-2 text-indigo-700 text-sm">
+                          <ul className="space-y-2 text-blue-700 text-sm">
+                            <li>• Email content and attachments</li>
                             <li>
-                              • <strong>Purpose:</strong> Read customer emails
-                              for support ticket creation and send responses
+                              • Sender/recipient information and timestamps
                             </li>
-                            <li>
-                              • <strong>Scopes:</strong> Mail.Read, Mail.Send,
-                              offline_access
-                            </li>
-                            <li>
-                              • <strong>Storage:</strong> Email data is
-                              encrypted and stored in secure data centers in
-                              India
-                            </li>
-                            <li>
-                              • <strong>Revocation:</strong> You can revoke
-                              access anytime through your Microsoft Account
-                              settings at
-                              https://account.microsoft.com/privacy/app-access
-                            </li>
-                            <li>
-                              • <strong>Sharing:</strong> Email data is never
-                              shared with third parties
-                            </li>
-                            <li>
-                              • <strong>Microsoft Graph API:</strong> We use
-                              Microsoft Graph API to access your email data.
-                              Microsoft's own privacy policies also apply to
-                              data accessed through their services.
-                            </li>
-                            <li>
-                              • <strong>Data Processing:</strong> Email content,
-                              metadata (sender, recipient, timestamps), and
-                              attachments are processed to provide our services
-                            </li>
+                            <li>• Email folders and labels</li>
                           </ul>
+                          <p className="text-blue-700 mt-3">
+                            All email data is encrypted and stored securely in
+                            data centers in India. You can disconnect your email
+                            account anytime from your account settings.
+                          </p>
                         </div>
                       </div>
                     </CardBody>
                   </Card>
                 </section>
 
-                {/* Data Usage */}
                 <section id="data-usage" className="scroll-mt-20">
                   <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <CardBody className="p-8">
@@ -353,18 +297,12 @@ const PrivacyPolicyPage = () => {
                             <CardBody className="p-6">
                               <div className="text-3xl mb-3">🤖</div>
                               <h3 className="text-lg font-bold text-slate-800 mb-3">
-                                Platform Improvement
+                                AI-Powered Features
                               </h3>
                               <p className="text-slate-600 text-sm">
-                                Our AI systems continuously process data in real
-                                time to enhance the features you use, such as
-                                improving email classification, generating
-                                helpful response suggestions, and optimizing
-                                workflows. All enhancements are applied only to
-                                improve your personal experience within the
-                                platform and <strong> do not </strong>
-                                involve using Gmail or Outlook data to train
-                                general AI models.
+                                Enhance platform features like email
+                                classification, automated response suggestions,
+                                and workflow optimization using AI processing.
                               </p>
                             </CardBody>
                           </Card>
@@ -376,9 +314,9 @@ const PrivacyPolicyPage = () => {
                                 Analytics & Reports
                               </h3>
                               <p className="text-slate-600 text-sm">
-                                Generate performance dashboards and analytics
-                                directly within our platform to help you manage
-                                and improve your customer engagement operations.
+                                Generate performance dashboards and analytics to
+                                help you manage and improve your customer
+                                engagement operations.
                               </p>
                             </CardBody>
                           </Card>
@@ -395,8 +333,7 @@ const PrivacyPolicyPage = () => {
                             </p>
                             <p>
                               • <strong>Legitimate Interest:</strong> To improve
-                              user-facing features and functionality that
-                              directly benefit you
+                              features and functionality
                             </p>
                             <p>
                               • <strong>Consent:</strong> For marketing
@@ -404,13 +341,7 @@ const PrivacyPolicyPage = () => {
                             </p>
                             <p>
                               • <strong>Legal Compliance:</strong> To meet
-                              regulatory and legal requirements
-                            </p>
-                            <p className="text-sm italic mt-2">
-                              Note: For Gmail data accessed via Google APIs, we
-                              rely on your explicit consent and use data only to
-                              provide or improve user-facing features of our
-                              service.
+                              regulatory requirements
                             </p>
                           </div>
                         </div>
@@ -419,7 +350,6 @@ const PrivacyPolicyPage = () => {
                   </Card>
                 </section>
 
-                {/* Data Security */}
                 <section id="data-security" className="scroll-mt-20">
                   <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <CardBody className="p-8">
@@ -434,11 +364,9 @@ const PrivacyPolicyPage = () => {
                         <p className="text-slate-600 text-lg">
                           We implement industry-standard security measures to
                           safeguard your data from unauthorized access, loss, or
-                          misuse. Security is embedded in every stage of our
-                          platform's design and operations.
+                          misuse.
                         </p>
 
-                        {/* Access Controls First – shows strong internal discipline */}
                         <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
                           <h4 className="font-bold text-blue-800 mb-3">
                             🔒 Access Controls
@@ -446,13 +374,10 @@ const PrivacyPolicyPage = () => {
                           <p className="text-blue-700">
                             We use role-based access controls, periodic access
                             reviews, and detailed audit logging to ensure only
-                            authorized personnel can access your data. All
-                            access is monitored and recorded for security
-                            purposes.
+                            authorized personnel can access your data.
                           </p>
                         </div>
 
-                        {/* Security Measures Second – covers infrastructure protection */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-0">
                             <CardBody className="p-6">
@@ -464,14 +389,9 @@ const PrivacyPolicyPage = () => {
                                   • Enterprise-grade encryption for data at rest
                                   and in transit
                                 </li>
+                                <li>• Secure data centers in India</li>
                                 <li>
-                                  • Stored in secure data centers located in
-                                  India, unless otherwise required by law or
-                                  agreed with the customer.
-                                </li>
-                                <li>
-                                  • Ongoing security monitoring and periodic
-                                  internal audits
+                                  • Regular security monitoring and audits
                                 </li>
                               </ul>
                             </CardBody>
@@ -480,25 +400,18 @@ const PrivacyPolicyPage = () => {
                           <Card className="bg-gradient-to-br from-indigo-50 to-indigo-100 border-0">
                             <CardBody className="p-6">
                               <h3 className="text-lg font-bold text-slate-800 mb-3">
-                                🛡️ Microsoft 365 Security Compliance
+                                🛡️ Email Security
                               </h3>
                               <ul className="space-y-2 text-slate-600 text-sm">
-                                <li>• OAuth 2.0 with secure token storage</li>
                                 <li>
-                                  • Tokens encrypted at rest and in transit
+                                  • OAuth 2.0 tokens encrypted at rest and in
+                                  transit (for Outlook)
                                 </li>
                                 <li>
-                                  • Regular security audits and penetration
-                                  testing
+                                  • IMAP credentials encrypted in secure storage
                                 </li>
-                                <li>
-                                  • Compliance with Microsoft's security
-                                  requirements
-                                </li>
-                                <li>
-                                  • No storage of user passwords (OAuth tokens
-                                  only)
-                                </li>
+                                <li>• Regular security audits</li>
+                                <li>• No storage of user passwords</li>
                               </ul>
                             </CardBody>
                           </Card>
@@ -508,7 +421,6 @@ const PrivacyPolicyPage = () => {
                   </Card>
                 </section>
 
-                {/* Data Sharing */}
                 <section id="data-sharing" className="scroll-mt-20">
                   <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <CardBody className="p-8">
@@ -553,14 +465,9 @@ const PrivacyPolicyPage = () => {
                               </h3>
                               <ul className="space-y-2 text-slate-600 text-sm">
                                 <li>• Sell data to third parties</li>
-                                <li>• Share data for advertising purposes</li>
-                                <li>
-                                  • Provide access without proper safeguards
-                                </li>
-                                <li>
-                                  • Use your data outside our stated purposes
-                                  and policy
-                                </li>
+                                <li>• Share data for advertising</li>
+                                <li>• Provide access without safeguards</li>
+                                <li>• Use data outside stated purposes</li>
                               </ul>
                             </CardBody>
                           </Card>
@@ -574,45 +481,22 @@ const PrivacyPolicyPage = () => {
                       <div className="flex items-center gap-3 mb-6">
                         <span className="text-3xl">🤖</span>
                         <h2 className="text-3xl font-bold text-slate-800">
-                          Email Integration & AI Processing
+                          AI Processing
                         </h2>
                       </div>
-                      <div className="space-y-6">
-                        <p className="text-yellow-700 mb-3">
-                          Our AI systems process your data in real time to
-                          deliver and enhance user-facing features of our
-                          platform — such as email classification, automated
-                          response suggestions, and workflow optimization. These
-                          improvements are designed solely to enhance your
-                          personal experience within the platform.
-                        </p>
-
-                        <p className="text-yellow-700 mb-3">
-                          <strong>
-                            Important for Email Integration Users:
-                          </strong>{" "}
-                          Gmail and Outlook data accessed via APIs is processed{" "}
-                          <strong>only</strong> to provide the features you
-                          actively use within our service. We{" "}
-                          <strong>do not</strong> use this data to serve
-                          advertisements or share with third parties. All
-                          processing is done solely to provide the features you
-                          actively use within our service.
-                        </p>
-
-                        <p className="text-yellow-700">
-                          All AI processing occurs securely within our platform.
-                          Gmail and Outlook email data are stored solely to
-                          provide and maintain your email management features —
-                          such as reading, classifying, suggesting responses,
-                          and managing your customer communications.
+                      <div className="space-y-4">
+                        <p className="text-slate-700">
+                          Our AI systems process your email data to deliver
+                          features such as email classification, automated
+                          response suggestions, and workflow optimization. All
+                          AI processing occurs securely within our platform to
+                          provide and enhance the features you use.
                         </p>
                       </div>
                     </CardBody>
                   </Card>
                 </section>
 
-                {/* User Rights */}
                 <section id="user-rights" className="scroll-mt-20">
                   <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <CardBody className="p-8">
@@ -631,7 +515,7 @@ const PrivacyPolicyPage = () => {
                             </h3>
                             <p className="text-slate-600 text-sm">
                               Request a copy of the personal data we have about
-                              you and how we use it.
+                              you.
                             </p>
                           </CardBody>
                         </Card>
@@ -644,7 +528,7 @@ const PrivacyPolicyPage = () => {
                             </h3>
                             <p className="text-slate-600 text-sm">
                               Update or correct any inaccurate personal
-                              information in your account.
+                              information.
                             </p>
                           </CardBody>
                         </Card>
@@ -657,7 +541,7 @@ const PrivacyPolicyPage = () => {
                             </h3>
                             <p className="text-slate-600 text-sm">
                               Request deletion of your personal data when no
-                              longer needed for our services.
+                              longer needed.
                             </p>
                           </CardBody>
                         </Card>
@@ -669,8 +553,7 @@ const PrivacyPolicyPage = () => {
                               Export Your Data
                             </h3>
                             <p className="text-slate-600 text-sm">
-                              Download your data in a portable format to
-                              transfer to another service.
+                              Download your data in a portable format.
                             </p>
                           </CardBody>
                         </Card>
@@ -683,7 +566,7 @@ const PrivacyPolicyPage = () => {
                             </h3>
                             <p className="text-slate-600 text-sm">
                               Object to certain uses of your data, including
-                              marketing communications.
+                              marketing.
                             </p>
                           </CardBody>
                         </Card>
@@ -695,8 +578,8 @@ const PrivacyPolicyPage = () => {
                               Restrict Processing
                             </h3>
                             <p className="text-slate-600 text-sm">
-                              Limit how we process your data while we address
-                              your concerns.
+                              Limit how we process your data while addressing
+                              concerns.
                             </p>
                           </CardBody>
                         </Card>
@@ -714,14 +597,13 @@ const PrivacyPolicyPage = () => {
                         <p className="text-blue-700 text-sm">
                           Please include your name, contact information, and
                           specific request. We may need to verify your identity
-                          before processing certain requests.
+                          before processing.
                         </p>
                       </div>
                     </CardBody>
                   </Card>
                 </section>
 
-                {/* Data Retention */}
                 <section id="retention" className="scroll-mt-20">
                   <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <CardBody className="p-8">
@@ -743,16 +625,13 @@ const PrivacyPolicyPage = () => {
                               <h3 className="text-lg font-bold text-slate-800 mb-4">
                                 📋 Retention Periods
                               </h3>
-                              <div className="space-y-3">
-                                <span className="text-slate-800 font-semibold text-sm">
-                                  We retain different categories of data for
-                                  varying periods depending on legal, business,
-                                  and operational needs. Retention periods may
-                                  be updated from time to time and will be
-                                  communicated in the most recent version of
-                                  this policy.
-                                </span>
-                              </div>
+                              <p className="text-slate-600 text-sm">
+                                We retain different categories of data for
+                                varying periods depending on legal, business,
+                                and operational needs. Retention periods are
+                                outlined in our Terms of Service and may be
+                                updated from time to time.
+                              </p>
                             </CardBody>
                           </Card>
 
@@ -774,13 +653,12 @@ const PrivacyPolicyPage = () => {
                                 </li>
                                 <li>• Anonymous analytics may be preserved</li>
                                 <li>
-                                  • Email data from third-party integrations
-                                  (Gmail, Outlook) is retained according to your
-                                  subscription plan
+                                  • Email credentials (IMAP app passwords or
+                                  OAuth tokens) stored encrypted
                                 </li>
                                 <li>
-                                  • Upon revocation of third-party access,
-                                  associated data is deleted within 30 days
+                                  • Upon disconnection, email access credentials
+                                  are deleted within 30 days
                                 </li>
                               </ul>
                             </CardBody>
@@ -808,7 +686,6 @@ const PrivacyPolicyPage = () => {
         </div>
       </div>
 
-      {/* Call to Action Footer */}
       <div className="bg-gradient-to-br from-blue-600 to-indigo-700 py-16">
         <div className="container mx-auto px-6 sm:px-8 lg:px-10 text-center">
           <h3 className="text-3xl font-bold text-white mb-4">
