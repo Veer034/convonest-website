@@ -100,8 +100,8 @@ const LandingPage = () => {
               <p className="mx-auto mb-12 max-w-3xl text-xl leading-relaxed text-slate-600 sm:text-2xl lg:text-2xl">
                 Convonest Analytics provides a cutting-edge platform to
                 revolutionize how businesses manage and optimize customer
-                interactions across chat, email, and WhatsApp. Harnessing the
-                power of AI-driven automation and data-driven insights.
+                interactions across chat and email. Harnessing the power of
+                AI-driven automation and data-driven insights.
               </p>
               <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
                 <Button

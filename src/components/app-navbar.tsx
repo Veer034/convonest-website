@@ -142,7 +142,7 @@ export default function App() {
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex" justify="end">
-        <NavbarItem>
+        <NavbarItem className="flex items-center">
           <Button
             onClick={() => handleNavigation("#contact")}
             className="bg-gradient-to-r from-blue-600 to-indigo-600 font-semibold text-white shadow-md transition-all duration-300 hover:from-blue-700 hover:to-indigo-700 hover:shadow-lg hover:-translate-y-0.5"
@@ -150,6 +150,16 @@ export default function App() {
             size="md"
           >
             Get Started
+          </Button>
+          <Button
+            onClick={() =>
+              (window.location.href = "https://dash.convonest.com/")
+            }
+            className="ml-4 bg-gradient-to-r from-green-500 to-teal-500 font-semibold text-white shadow-md transition-all duration-300 hover:from-green-600 hover:to-teal-600 hover:shadow-lg hover:-translate-y-0.5"
+            radius="full"
+            size="md"
+          >
+            Register
           </Button>
         </NavbarItem>
       </NavbarContent>
